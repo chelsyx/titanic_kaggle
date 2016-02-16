@@ -166,9 +166,14 @@ result_test <- predict(logit_fit,test_comp,proba=T,decisionValues=TRUE)
 
 # Output table
 output_tb <- cbind(data_test[,PassengerId], as.numeric(result_test$predictions)-1)
-colnames(output_tb) <- c("PassengerId", "Survived") # 0.77033 accuracy on leader board
+colnames(output_tb) <- c("PassengerId", "Survived") 
+# 0.77033 accuracy on leader board
+# same result as logit regression with less predictors 
+# http://nbviewer.jupyter.org/github/agconti/kaggle-titanic/blob/master/Titanic.ipynb
 
 write.csv(output_tb, file="logit_pred.csv", row.names = F)
+
+## change probability cutoff to see if logit reg get a better result??????
 
 ##########################################################################
 
@@ -208,11 +213,19 @@ rf.pred1 <- predict( rf1, test_imp)
 # Output table
 output_tb <- cbind(data_test[,PassengerId], as.numeric(rf.pred1)-1)
 colnames(output_tb) <- c("PassengerId", "Survived") # 0.75120 accuracy, worse than logistic and gender based model
+# worse than rf in kaggle tutorial; may bc feature eng: family size, age*pclass
 
 write.csv(output_tb, file="rf1_pred.csv", row.names = F)
 
 
 
 
+##########################################################################
+
+## Know that a score of 0.79 - 0.81 is doing well on this challenge, and 0.81-0.82 is really going beyond the basic models! The dataset here is smaller than normal, so there is less signal to tap your models into.
 
 
+# Revisit your assumptions about how you cleaned and filled the data.
+# Be creative with additional feature engineering
+# Experiment with different parameters for your random forest.
+# Consider a different model approach
