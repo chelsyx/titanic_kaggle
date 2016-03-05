@@ -62,7 +62,7 @@ aggregate(data_train1$Pclass, by=list(data_train1$cabinL),mean) #TABC 1class; G 
 aggregate(data_train1$Fare, by=list(data_train1$cabinL),median) #T and A are first clss, but cheap ticket
 
 table(data_train1$Pclass, data_train1$Survived) #1st class more likely to survived
-boxplot(data_train1$Survived, data_train1$Fare) #high fare more likely to survived, but large CI
+boxplot(data_train1$Survived, data_train1$Fare) #high fare more likely to survived, but large variance
 
 
 
@@ -168,7 +168,7 @@ result_test <- predict(logit_fit,test_comp,proba=T,decisionValues=TRUE)
 output_tb <- cbind(data_test[,PassengerId], as.numeric(result_test$predictions)-1)
 colnames(output_tb) <- c("PassengerId", "Survived") 
 # 0.77033 accuracy on leader board
-# same result as logit regression with less predictors 
+# same result as logit regression with less predictors: 
 # http://nbviewer.jupyter.org/github/agconti/kaggle-titanic/blob/master/Titanic.ipynb
 
 write.csv(output_tb, file="logit_pred.csv", row.names = F)
